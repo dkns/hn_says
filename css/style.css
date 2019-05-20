@@ -1,0 +1,10 @@
+.what-hn-says {
+  display: none;
+  flex-direction: column;
+  list-style-type: none;
+  margin: 0 15px 0 15px;
+}
+
+.what-hn-says li {
+  display: flex;
+}
