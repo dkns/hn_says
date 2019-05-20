@@ -94,6 +94,14 @@ function createStoriesList(stories: IStory[]): HTMLElement {
     list.append(listElement);
   }
 
+  document.addEventListener('expandButtonToggle', () => {
+    if (list.style.display === 'none') {
+      list.style.display = 'flex';
+    } else {
+      list.style.display = 'none';
+    }
+  });
+
   return list;
 }
 
@@ -109,14 +117,8 @@ async function main(): Promise<void> {
     storiesList,
   );
   appendToPage('.BtnGroup', expandButton);
-
-  document.addEventListener('expandButtonToggle', () => {
-    if (storiesList.style.display === 'none') {
-      storiesList.style.display = 'flex';
-    } else {
-      storiesList.style.display = 'none';
-    }
-  });
 }
 
 main();
+
+export { formatStoryTitle };
