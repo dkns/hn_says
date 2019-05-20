@@ -9,18 +9,13 @@ const repositoryUrl: string = window.location.pathname;
 const HN_SEARCH_URL: string = 'https://hn.algolia.com/api/v1/search_by_date';
 const HN_STORY_URL: string = 'https://news.ycombinator.com/item?id=';
 
-async function searchForStories(searchQuery: string) {
+async function searchForStories(searchQuery: string): Promise<IStory[]> {
   const resp = await fetch(
     `${HN_SEARCH_URL}?query="${searchQuery}"&tags=(story,show_hn)`,
   );
   const json = await resp.json();
 
-  return json;
-}
-
-async function extractStories(topicToSearch: string): Promise<IStory[]> {
-  const jsonData = await searchForStories(topicToSearch);
-  return jsonData.hits;
+  return json.hits;
 }
 
 function createExpandButton(): HTMLElement {
@@ -107,9 +102,9 @@ function createStoriesList(stories: IStory[]): HTMLElement {
 
 async function main(): Promise<void> {
   const topicToSearch: string = stripLeadingSlash(repositoryUrl);
-  const extractedStories: IStory[] = await extractStories(topicToSearch);
+  const stories: IStory[] = await searchForStories(topicToSearch);
 
-  const storiesList: HTMLElement = createStoriesList(extractedStories);
+  const storiesList: HTMLElement = createStoriesList(stories);
   const expandButton = createExpandButton();
 
   appendToPageAfterElement(
