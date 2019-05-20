@@ -9,7 +9,7 @@ const repositoryUrl: string = window.location.pathname;
 const HN_SEARCH_URL: string = 'https://hn.algolia.com/api/v1/search_by_date';
 const HN_STORY_URL: string = 'https://news.ycombinator.com/item?id=';
 
-async function searchForRepo(searchQuery: string) {
+async function searchForStories(searchQuery: string) {
   const resp = await fetch(
     `${HN_SEARCH_URL}?query="${searchQuery}"&tags=(story,show_hn)`,
   );
@@ -18,12 +18,12 @@ async function searchForRepo(searchQuery: string) {
   return json;
 }
 
-async function extractStories(data) {
-  const jsonData = await searchForRepo(data);
+async function extractStories(topicToSearch: string): Promise<IStory[]> {
+  const jsonData = await searchForStories(topicToSearch);
   return jsonData.hits;
 }
 
-function createExpandButton() {
+function createExpandButton(): HTMLElement {
   const button = document.createElement('button');
   button.className = 'btn btn-sm BtnGroup-item';
   button.innerText = 'What HN says';
@@ -36,7 +36,27 @@ function createExpandButton() {
   return button;
 }
 
-function createStoryLink(story) {
+interface IStory {
+  author?: string;
+  comment_text?: string;
+  created_at?: string;
+  created_at_i: number;
+  num_comments: number;
+  objectID: number;
+  parent_id?: number;
+  points: number;
+  relevancy_score?: number;
+  story_id?: number;
+  story_text?: string;
+  story_title?: string;
+  story_url?: string;
+  title: string;
+  url?: string;
+  _highlightResult?: object;
+  _tags?: string[];
+}
+
+function createStoryLink(story: IStory): Node {
   const {
     objectID,
     title,
@@ -56,14 +76,14 @@ function createStoryLink(story) {
 
 function formatStoryTitle(
   title: string,
-  points: string,
-  numComments: string,
+  points: number,
+  numComments: number,
   date: string,
 ): string {
-  return `${date} Points: ${points}, Comments: ${numComments} --- ${title}`;
+  return `${date} Points: ${points.toString()}, Comments: ${numComments.toString()} --- ${title}`;
 }
 
-function createStoriesList(stories: string) {
+function createStoriesList(stories: IStory[]): HTMLElement {
   const list = document.createElement('ul');
   list.className = 'what-hn-says';
 
@@ -78,9 +98,9 @@ function createStoriesList(stories: string) {
 
 async function main(): Promise<void> {
   const topicToSearch: string = stripLeadingSlash(repositoryUrl);
-  const extractedStories = await extractStories(topicToSearch);
+  const extractedStories: IStory[] = await extractStories(topicToSearch);
 
-  const storiesList = createStoriesList(extractedStories);
+  const storiesList: HTMLElement = createStoriesList(extractedStories);
   const expandButton = createExpandButton();
 
   appendToPageAfterElement(
