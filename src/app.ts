@@ -86,6 +86,7 @@ function formatStoryTitle(
 function createStoriesList(stories: IStory[]): HTMLElement {
   const list = document.createElement('ul');
   list.className = 'what-hn-says';
+  list.style.display = 'none';
 
   for (const story of stories) {
     const listElement = document.createElement('li');
