@@ -80,8 +80,7 @@ function formatStoryTitle(
 
 function createStoriesList(stories: IStory[]): HTMLElement {
   const list = document.createElement('ul');
-  list.className = 'what-hn-says';
-  list.style.display = 'none';
+  list.className = 'what-hn-says-closed';
 
   for (const story of stories) {
     const listElement = document.createElement('li');
@@ -90,10 +89,10 @@ function createStoriesList(stories: IStory[]): HTMLElement {
   }
 
   document.addEventListener('expandButtonToggle', () => {
-    if (list.style.display === 'none') {
-      list.style.display = 'flex';
+    if (list.className === 'what-hn-says') {
+      list.className = 'what-hn-says-closed';
     } else {
-      list.style.display = 'none';
+      list.className = 'what-hn-says';
     }
   });
 

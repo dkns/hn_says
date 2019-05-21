@@ -1,7 +1,22 @@
 .what-hn-says {
+  display: flex;
   flex-direction: column;
   list-style-type: none;
   margin: 0 15px 0 15px;
+  transition: all .5s ease;
+  max-height: 300px;
+}
+
+.what-hn-says-closed {
+  max-height: 0px;
+  margin: 0 15px 0 15px;
+  transition: all .5s ease;
+  display: hidden;
+  list-style-type: none;
+}
+
+.what-hn-says-closed li {
+  display: none;
 }
 
 .what-hn-says li {
