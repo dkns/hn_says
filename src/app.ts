@@ -51,31 +51,37 @@ interface IStory {
   _tags?: string[];
 }
 
-function createStoryLink(story: IStory): Node {
+function createStoryInfo(story: IStory): Node {
   const {
-    objectID,
-    title,
-    points,
-    num_comments: numComments,
     created_at_i: unixTimestamp,
+    num_comments: numComments,
+    points,
   } = story;
+  const date = convertToHumanDate(unixTimestamp);
+  const storyInfo = document.createElement('div');
+  storyInfo.className = 'what-hn-says-story-info';
+  storyInfo.innerHTML = formatStoryTitle(points, numComments, date);
+
+  return storyInfo;
+}
+
+function createStoryLink(story: IStory): Node {
+  const { objectID, title } = story;
   const storyUrl = HN_STORY_URL + objectID.toString();
   const storyLink = document.createElement('a');
-  const date = convertToHumanDate(unixTimestamp);
 
   storyLink.href = storyUrl;
-  storyLink.innerText = formatStoryTitle(title, points, numComments, date);
+  storyLink.innerHTML = title;
 
   return storyLink;
 }
 
-function formatStoryTitle(
-  title: string,
+export function formatStoryTitle(
   points: number,
   numComments: number,
   date: string,
 ): string {
-  return `${date} Points: ${points.toString()}, Comments: ${numComments.toString()} --- ${title}`;
+  return `${date} Points: ${points} Comments: ${numComments.toString()}`;
 }
 
 function createStoriesList(stories: IStory[]): HTMLElement {
@@ -84,6 +90,7 @@ function createStoriesList(stories: IStory[]): HTMLElement {
 
   for (const story of stories) {
     const listElement = document.createElement('li');
+    listElement.appendChild(createStoryInfo(story));
     listElement.appendChild(createStoryLink(story));
     list.append(listElement);
   }

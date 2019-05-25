@@ -1,16 +1,24 @@
 .what-hn-says {
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   list-style-type: none;
   margin: 0 15px 0 15px;
-  transition: all .5s ease;
-  max-height: 300px;
+  transition: all 0.5s ease;
+  max-height: 500px;
+  font-size: 0.9rem;
+}
+
+.what-hn-says-story-info {
+  font-size: 0.8rem;
+  font-weight: bold;
+  display: flex;
 }
 
 .what-hn-says-closed {
   max-height: 0px;
   margin: 0 15px 0 15px;
-  transition: all .5s ease;
+  transition: all 0.5s ease;
   display: hidden;
   list-style-type: none;
 }
@@ -19,6 +27,9 @@
   display: none;
 }
 
-.what-hn-says li {
-  display: flex;
+.what-hn-says > li {
+  justify-content: space-around;
+  margin: 5px 5px 5px 0;
+  max-width: 250px;
+  margin-left: 10px;
 }
