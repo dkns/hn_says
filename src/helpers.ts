@@ -2,9 +2,18 @@ function stripLeadingSlash(pathname: string): string {
   return pathname.replace(/^\/+/g, '');
 }
 
+function paddedDate(date: Date): string {
+  return date.getDate().toString().padStart(2, '0');
+}
+
+function paddedMonth(date: Date): string {
+  const month = date.getMonth() + 1;
+  return month.toString().padStart(2, '0');
+}
+
 function convertToHumanDate(unixTimestamp: number): string {
   const date = new Date(unixTimestamp * 1000);
-  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+  return `${date.getFullYear()}-${paddedMonth(date)}-${paddedDate(date)}`;
 }
 
 function appendToPage(target: string, html: Node): void {
