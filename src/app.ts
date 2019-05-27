@@ -84,15 +84,19 @@ export function formatStoryTitle(
   return `${date} Points: ${points} Comments: ${numComments.toString()}`;
 }
 
-function createStoriesList(stories: IStory[]): HTMLElement {
+export function createStoriesListElement(story: IStory): Node {
+  const listElement = document.createElement('li');
+  listElement.appendChild(createStoryInfo(story));
+  listElement.appendChild(createStoryLink(story));
+  return listElement;
+}
+
+export function createStoriesList(stories: IStory[]): HTMLElement {
   const list = document.createElement('ul');
   list.className = 'what-hn-says-closed';
 
   for (const story of stories) {
-    const listElement = document.createElement('li');
-    listElement.appendChild(createStoryInfo(story));
-    listElement.appendChild(createStoryLink(story));
-    list.append(listElement);
+    list.append(createStoriesListElement(story));
   }
 
   document.addEventListener('expandButtonToggle', () => {
