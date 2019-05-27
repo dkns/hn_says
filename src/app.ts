@@ -18,7 +18,7 @@ async function searchForStories(searchQuery: string): Promise<IStory[]> {
   return json.hits;
 }
 
-function createExpandButton(): HTMLElement {
+export function createExpandButton(): HTMLElement {
   const button = document.createElement('button');
   button.className = 'btn btn-sm BtnGroup-item';
   button.innerText = 'What HN says';
@@ -51,7 +51,7 @@ interface IStory {
   _tags?: string[];
 }
 
-function createStoryInfo(story: IStory): Node {
+export function createStoryInfo(story: IStory): Node {
   const {
     created_at_i: unixTimestamp,
     num_comments: numComments,
@@ -65,7 +65,7 @@ function createStoryInfo(story: IStory): Node {
   return storyInfo;
 }
 
-function createStoryLink(story: IStory): Node {
+export function createStoryLink(story: IStory): Node {
   const { objectID, title } = story;
   const storyUrl = HN_STORY_URL + objectID.toString();
   const storyLink = document.createElement('a');
@@ -125,5 +125,3 @@ async function main(): Promise<void> {
 }
 
 main();
-
-export { formatStoryTitle };
