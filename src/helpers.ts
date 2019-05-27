@@ -3,7 +3,10 @@ function stripLeadingSlash(pathname: string): string {
 }
 
 function paddedDate(date: Date): string {
-  return date.getDate().toString().padStart(2, '0');
+  return date
+    .getDate()
+    .toString()
+    .padStart(2, '0');
 }
 
 function paddedMonth(date: Date): string {
@@ -23,10 +26,14 @@ function appendToPage(target: string, html: Node): void {
 
 function appendToPageAfterElement(target: string, html: Node): void {
   const targetNode = document.getElementsByClassName(target);
-  targetNode[0]!.parentNode!.insertBefore(
-    html,
-    targetNode[0]!.nextSibling,
-  );
+  targetNode[0]!.parentNode!.insertBefore(html, targetNode[0]!.nextSibling);
 }
 
-export { appendToPage, appendToPageAfterElement, stripLeadingSlash, convertToHumanDate };
+export {
+  appendToPage,
+  appendToPageAfterElement,
+  paddedDate,
+  paddedMonth,
+  stripLeadingSlash,
+  convertToHumanDate,
+};
