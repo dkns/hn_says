@@ -6,7 +6,6 @@
   "author": "Daniel Kosiński",
 
   "page_action": {
-    "default_popup": "src/hn_says.html",
     "default_icon": {
       "16": "images/icon16.png",
       "32": "images/icon32.png",
