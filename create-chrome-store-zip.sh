@@ -10,8 +10,6 @@ fi
 
 mkdir plugin
 cp manifest.json plugin
-cp -R images plugin
-cp -R css plugin
-cp -R build plugin
+cp -R {images,css,build} plugin
 
 zip -r plugin.zip plugin
