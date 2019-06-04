@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "compile": "tsc -p . --watch",
-    "build": "webpack",
+    "build": "webpack --config webpack.production.js",
     "dev": "webpack --config webpack.dev.js"
   },
   "author": "",
