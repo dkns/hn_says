@@ -6,24 +6,20 @@
   "scripts": {
     "test": "jest",
     "compile": "tsc -p . --watch",
-    "build": "webpack --config webpack.production.js",
-    "dev": "webpack --config webpack.dev.js"
+    "build": "parcel build src/app.ts -d build/ -o extension.js",
+    "dev": "parcel watch src/app.ts -d build/ -o extension.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^24.0.13",
     "jest": "^24.8.0",
+    "parcel-bundler": "^1.12.3",
     "prettier": "^1.17.1",
     "ts-jest": "^24.0.2",
     "ts-loader": "^6.0.0",
     "tslint": "^5.16.0",
     "tslint-config-airbnb": "^5.11.1",
-    "webpack": "^4.31.0",
-    "webpack-cli": "^3.3.2",
-    "webpack-merge": "^4.2.1"
-  },
-  "dependencies": {
     "typescript": "^3.4.5"
   }
 }
