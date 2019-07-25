@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "What HN Says",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Shows related HN threads and comments on GitHub projects",
   "author": "Daniel Kosiński",
 
