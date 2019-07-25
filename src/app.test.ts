@@ -55,6 +55,7 @@ describe('app.ts', () => {
     it('creates html button', () => {
       const testButton = document.createElement('button');
       testButton.className = 'btn btn-sm BtnGroup-item';
+      testButton.id = 'hn-says-btn';
       testButton.innerText = 'What HN says';
       expect(createExpandButton()).toEqual(testButton);
     });

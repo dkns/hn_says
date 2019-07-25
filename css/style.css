@@ -2,9 +2,7 @@
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  list-style-type: none;
   margin: 0 15px 0 15px;
-  transition: all 0.5s ease;
   max-height: 500px;
   font-size: 0.9rem;
 }
@@ -18,18 +16,30 @@
 .what-hn-says-closed {
   max-height: 0px;
   margin: 0 15px 0 15px;
-  transition: all 0.5s ease;
-  display: hidden;
-  list-style-type: none;
-}
-
-.what-hn-says-closed li {
   display: none;
 }
 
-.what-hn-says > li {
+.what-hn-says-list {
+  margin: 0 15px 0 15px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  list-style-type: none;
+  max-height: 500px;
+}
+
+.what-hn-says-list > li {
   justify-content: space-around;
   margin: 5px 5px 5px 0;
   max-width: 250px;
   margin-left: 10px;
+}
+
+#hn-says-btn {
+  color: orange;
+}
+
+.what-hn-says-empty-list {
+  margin: 10px 0 10px 0;
+  text-align: center;
 }

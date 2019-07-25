@@ -21,7 +21,8 @@ async function searchForStories(searchQuery: string): Promise<IStory[]> {
 export function createExpandButton(): HTMLElement {
   const button = document.createElement('button');
   button.className = 'btn btn-sm BtnGroup-item';
-  button.innerText = 'What HN says';
+  button.id = 'hn-says-btn';
+  button.innerText = 'What HN says?';
 
   button.addEventListener('click', () => {
     const event = new CustomEvent('expandButtonToggle', { bubbles: true });
@@ -93,35 +94,62 @@ export function createStoriesListElement(story: IStory): Node {
 
 export function createStoriesList(stories: IStory[]): HTMLElement {
   const list = document.createElement('ul');
-  list.className = 'what-hn-says-closed';
+  list.className = 'what-hn-says-list';
 
   for (const story of stories) {
     list.append(createStoriesListElement(story));
   }
 
+  return list;
+}
+
+export function createHoldingContainer(): HTMLElement {
+  const container = document.createElement('div');
+  container.className = 'what-hn-says-closed';
+  container.id = 'hn-says-container';
+
   document.addEventListener('expandButtonToggle', () => {
-    if (list.className === 'what-hn-says') {
-      list.className = 'what-hn-says-closed';
+    if (container.className === 'what-hn-says') {
+      container.className = 'what-hn-says-closed';
     } else {
-      list.className = 'what-hn-says';
+      container.className = 'what-hn-says';
     }
   });
 
-  return list;
+  return container;
+}
+
+export function createEmptyListMessage(): HTMLElement {
+  const empty = document.createElement('a');
+  empty.className = 'what-hn-says-empty-list';
+  empty.href = `http://news.ycombinator.com/submitlink?u=${encodeURIComponent(
+    document.location.toString(),
+  )}&t=${encodeURIComponent(document.title)}`;
+  empty.innerHTML = 'Nothing here yet! Consider submitting?';
+
+  return empty;
 }
 
 async function main(): Promise<void> {
   const topicToSearch: string = stripLeadingSlash(repositoryUrl);
   const stories: IStory[] = await searchForStories(topicToSearch);
 
-  const storiesList: HTMLElement = createStoriesList(stories);
   const expandButton = createExpandButton();
+  appendToPage('.BtnGroup', expandButton);
 
   appendToPageAfterElement(
     'file-navigation in-mid-page d-flex flex-items-start',
-    storiesList,
+    createHoldingContainer(),
   );
-  appendToPage('.BtnGroup', expandButton);
+
+  if (stories.length > 0) {
+    const storiesList: HTMLElement = createStoriesList(stories);
+    document.getElementById('hn-says-container')!.appendChild(storiesList);
+  } else {
+    document
+      .getElementById('hn-says-container')!
+      .appendChild(createEmptyListMessage());
+  }
 }
 
 main();
