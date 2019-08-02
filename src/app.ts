@@ -22,7 +22,7 @@ export function createExpandButton(): HTMLElement {
   const button = document.createElement('button');
   button.className = 'btn btn-sm BtnGroup-item';
   button.id = 'hn-says-btn';
-  button.innerText = 'What HN says?';
+  button.innerText = 'Hacker News Opinions';
 
   button.addEventListener('click', () => {
     const event = new CustomEvent('expandButtonToggle', { bubbles: true });

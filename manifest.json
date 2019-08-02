@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "What HN Says",
-  "version": "0.1.2",
-  "description": "Shows related HN threads and comments on GitHub projects",
+  "name": "Hacker News Opinions",
+  "version": "0.1.3",
+  "description": "Shows related Hacker News threads and comments on GitHub projects",
   "author": "Daniel Kosiński",
 
   "page_action": {
